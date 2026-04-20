@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="560.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+	<bottom>
+		<BorderPane BorderPane.alignment="TOP_LEFT">
+			<padding>
+				<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+			</padding>
+			<right>
+				<HBox alignment="CENTER_RIGHT" prefWidth="170.0" BorderPane.alignment="CENTER_LEFT">
+					<children>
+						<Label text="x = " />
+						<Label fx:id="cursorXLabel" alignment="CENTER_RIGHT" minWidth="-Infinity" prefWidth="40.0" text="000" HBox.hgrow="NEVER">
+							<font>
+								<Font name="Courier" size="13.0" />
+							</font>
+						</Label>
+						<Label text=" y = " />
+						<Label fx:id="cursorYLabel" alignment="CENTER_RIGHT" minWidth="-Infinity" prefWidth="40.0" text="000" HBox.hgrow="NEVER">
+							<font>
+								<Font name="Courier" size="13.0" />
+							</font>
+						</Label>
+					</children>
+				</HBox>
+			</right>
+         <center>
+				<Label fx:id="messagesLabel" prefWidth="600.0" text="Messages" BorderPane.alignment="CENTER_LEFT" />
+         </center>
+		</BorderPane>
+	</bottom>
+	<top>
+		<VBox BorderPane.alignment="CENTER">
+			<children>
+				<MenuBar VBox.vgrow="NEVER">
+					<menus>
+						<Menu mnemonicParsing="false" text="Files">
+							<items>
+								<MenuItem disable="true" mnemonicParsing="false" text="Load">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../icons/add_file-16.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</MenuItem>
+								<MenuItem disable="true" mnemonicParsing="false" text="Save">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../icons/save-16.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</MenuItem>
+								<SeparatorMenuItem mnemonicParsing="false" />
+								<MenuItem mnemonicParsing="false" onAction="#onQuitAction" text="Quit">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0">
+											<image>
+												<Image url="@../icons/shutdown-16.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</MenuItem>
+							</items>
+						</Menu>
+						<Menu mnemonicParsing="false" text="Figures">
+							<items>
+                        <MenuItem mnemonicParsing="false" text="Undo Last Action">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/undo-16.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="Z" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" text="Redo last Action">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/redo-16.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="Z" control="UP" meta="DOWN" shift="DOWN" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+								<MenuItem mnemonicParsing="false" text="Clear Drawing">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0">
+											<image>
+												<Image url="@../icons/erase2-16.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</MenuItem>
+                        <CheckMenuItem fx:id="toggleEditCheckMenuItem" mnemonicParsing="false" text="Toggle Edit Mode">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/edit-16.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="E" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </CheckMenuItem>
+                        <Menu mnemonicParsing="false" text="Operations">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Intersect">
+                                 <graphic>
+                                    <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/intersect-32.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </MenuItem>
+                              <MenuItem mnemonicParsing="false" text="Subtract">
+                                 <graphic>
+                                    <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/subtract-32.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </MenuItem>
+                              <MenuItem mnemonicParsing="false" text="Union">
+                                 <graphic>
+                                    <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/merge-32.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </MenuItem>
+                              <MenuItem mnemonicParsing="false" text="Split">
+                                 <graphic>
+                                    <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/exclude-32.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </MenuItem>
+                          </items>
+                        </Menu>
+                        <MenuItem mnemonicParsing="false" onAction="#onDemoAction" text="Figures Demo">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/particles-16.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></MenuItem>
+							</items>
+						</Menu>
+						<Menu mnemonicParsing="false" text="Preferences">
+							<items>
+								<Menu mnemonicParsing="false" text="Buttons Display">
+									<items>
+										<RadioMenuItem mnemonicParsing="false" onAction="#onDisplayButtonsWithGraphicsOnlyAction" selected="true" text="Graphics Only">
+											<toggleGroup>
+												<ToggleGroup fx:id="buttonsDisplayGroup" />
+											</toggleGroup>
+										</RadioMenuItem>
+										<RadioMenuItem mnemonicParsing="false" onAction="#onDisplayButtonsWithTextAndGraphicsAction" text="Text + Graphics" toggleGroup="$buttonsDisplayGroup" />
+										<RadioMenuItem mnemonicParsing="false" onAction="#onDisplayButtonsWithTextOnlyAction" text="Text Only" toggleGroup="$buttonsDisplayGroup" />
+									</items>
+								</Menu>
+                        <Menu mnemonicParsing="false" text="Debug Level">
+                           <items>
+                              <RadioMenuItem mnemonicParsing="false" onAction="#onSetLoggerLevelUpToInfoAction" selected="true" text="Info + Warning + Severe">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="debugLevelGroup" />
+                                 </toggleGroup>
+                              </RadioMenuItem>
+                              <RadioMenuItem mnemonicParsing="false" onAction="#onSetLoggerLevelUpToWarningAction" text="Warning + Severe" toggleGroup="$debugLevelGroup" />
+                              <RadioMenuItem mnemonicParsing="false" onAction="#onSetLoggerLevelUpToSevereAction" text="Severe" toggleGroup="$debugLevelGroup" />
+                              <RadioMenuItem mnemonicParsing="false" onAction="#onSetLoggerLevelOffAction" text="Off" toggleGroup="$debugLevelGroup" />
+                           </items>
+                        </Menu>
+                        <MenuItem mnemonicParsing="false" onAction="#onSetHistorySizeAction" text="Undos / Redos Size" />
+							</items>
+						</Menu>
+					</menus>
+				</MenuBar>
+				<ToolBar VBox.vgrow="NEVER">
+					<items>
+						<Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onUndoAction" text="Undo">
+							<graphic>
+								<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@../icons/undo-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="Undo Last Action" />
+							</tooltip>
+						</Button>
+						<Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Redo">
+							<graphic>
+								<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@../icons/redo-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="Redo Last Action" />
+							</tooltip>
+						</Button>
+						<Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Clear">
+							<graphic>
+								<ImageView>
+									<image>
+										<Image url="@../icons/trash-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="Clear All Figures" />
+							</tooltip>
+						</Button>
+						<ToggleButton contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Edition">
+							<graphic>
+								<ImageView fx:id="editToggleImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@../icons/edit-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="Toggle Edit Mode" />
+							</tooltip>
+						</ToggleButton>
+						<Separator />
+						<Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Delete">
+							<graphic>
+								<ImageView>
+									<image>
+										<Image url="@../icons/erase2-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="Clears Selected Figures" />
+							</tooltip>
+						</Button>
+						<Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Move Up">
+							<graphic>
+								<ImageView>
+									<image>
+										<Image url="@../icons/angle_up-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="Move Selected Figure Up" />
+							</tooltip>
+						</Button>
+						<Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Move Down">
+							<graphic>
+								<ImageView>
+									<image>
+										<Image url="@../icons/angle_down-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="Move Selected Figure Down" />
+							</tooltip>
+						</Button>
+						<Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Move Top">
+							<graphic>
+								<ImageView>
+									<image>
+										<Image url="@../icons/double_up-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="Move Selected Figure on Top" />
+							</tooltip>
+						</Button>
+						<Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Move Bottom">
+							<graphic>
+								<ImageView>
+									<image>
+										<Image url="@../icons/double_down-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="Move Selected Figure at Bottom" />
+							</tooltip>
+						</Button>
+						<Separator />
+						<HBox HBox.hgrow="ALWAYS" />
+						<Button fx:id="quitButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onQuitAction" text="Quit">
+							<graphic>
+								<ImageView>
+									<image>
+										<Image url="@../icons/shutdown-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="Quits application" />
+							</tooltip>
+						</Button>
+					</items>
+				</ToolBar>
+			</children>
+		</VBox>
+	</top>
+	<center>
+		<ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+			<content>
+				<Pane fx:id="drawingPane" maxHeight="1000.0" maxWidth="1000.0" minHeight="200.0" minWidth="200.0" prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: WHITE; -fx-cursor: CROSSHAIR;" />
+			</content>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem fx:id="intersectContextMenuItem" mnemonicParsing="false" onAction="#onCreateFigureOperation" text="Intersect">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/intersect-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+				</MenuItem>
+                <MenuItem fx:id="subtractContextMenuItem" mnemonicParsing="false" onAction="#onCreateFigureOperation" text="Subtract">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/subtract-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+				</MenuItem>
+                <MenuItem fx:id="unionContextMenuItem" mnemonicParsing="false" onAction="#onCreateFigureOperation" text="Union">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/merge-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+				</MenuItem>
+                <MenuItem fx:id="splitContextMenuItem" mnemonicParsing="false" onAction="#onSplitFigureOperation" text="Split">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/exclude-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+				</MenuItem>
+              </items>
+            </ContextMenu>
+         </contextMenu>
+		</ScrollPane>
+	</center>
+	<left>
+		<VBox prefWidth="220.0" BorderPane.alignment="CENTER">
+			<children>
+				<GridPane maxHeight="-Infinity" minHeight="-Infinity">
+					<columnConstraints>
+						<ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="98.0" minWidth="10.0" prefWidth="92.0" />
+						<ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="108.0" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+					</rowConstraints>
+					<children>
+						<Label text="Shape" />
+						<Label text="Line Type" GridPane.rowIndex="3" />
+						<Label text="Line Width" GridPane.rowIndex="4" />
+						<ColorPicker fx:id="fillColorPicker" onAction="#onFillColorChangedAction" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <value>
+                        <Color red="0.5607843399047852" green="0.6666666865348816" blue="0.8627451062202454" />
+                     </value></ColorPicker>
+						<ColorPicker fx:id="edgeColorPicker" onAction="#onEdgeColorChangedAction" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <value>
+                        <Color red="0.12156862765550613" green="0.30588236451148987" blue="0.4745098054409027" />
+                     </value></ColorPicker>
+						<Spinner fx:id="lineWidthSpinner" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+						<ComboBox fx:id="shapeTypeComboBox" onAction="#onShapeChangedAction" prefWidth="150.0" GridPane.columnIndex="1" />
+						<ComboBox fx:id="lineTypeCombobox" onAction="#onLineTypeChanged" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+						<CheckBox fx:id="useFillColor" contentDisplay="RIGHT" graphicTextGap="2.0" mnemonicParsing="false" onAction="#onApplyColorUsageAction" selected="true" text="Fill Color" GridPane.rowIndex="1" />
+						<CheckBox fx:id="useEdgeColor" contentDisplay="RIGHT" graphicTextGap="2.0" mnemonicParsing="false" onAction="#onApplyColorUsageAction" selected="true" text="Edge Color" GridPane.rowIndex="2" />
+					</children>
+				</GridPane>
+				<TabPane prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+					<tabs>
+						<Tab closable="false" text="Figures">
+							<content>
+								<VBox>
+									<children>
+										<ListView fx:id="figuresListView" VBox.vgrow="ALWAYS">
+                                 <contextMenu>
+                                    <ContextMenu>
+                                      <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#onClearSelectionAction" text="Clear Selection">
+                                             <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../icons/delete_database-16.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </MenuItem>
+                                          <MenuItem mnemonicParsing="false" onAction="#onInvertSelection" text="Invert Selection">
+                                             <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../icons/invert_selection-16.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic></MenuItem>
+                                          <MenuItem mnemonicParsing="false" onAction="#onDeleteSelectedAction" text="Delete Selected">
+                                             <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../icons/erase2-16.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic></MenuItem>
+                                      </items>
+                                    </ContextMenu>
+                                 </contextMenu></ListView>
+									</children>
+								</VBox>
+							</content>
+						</Tab>
+						<Tab closable="false" text="Infos">
+							<content>
+								<fx:include fx:id="infoPanel" source="./panels/InfoPanel.fxml" />
+							</content>
+						</Tab>
+					</tabs>
+				</TabPane>
+			</children>
+		</VBox>
+	</left>
+</BorderPane>
