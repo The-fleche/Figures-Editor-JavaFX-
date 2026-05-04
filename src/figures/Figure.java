@@ -289,8 +289,8 @@ public abstract class Figure implements Prototype<Figure>
 	 */
 	public boolean hasFillColor()
 	{
-		// TODO 001 Figure#hasFillColor ...
-		return false;
+		// DONE 001 Figure#hasFillColor ...
+		return fillColor.isPresent();
 	}
 
 	/**
@@ -299,8 +299,8 @@ public abstract class Figure implements Prototype<Figure>
 	 */
 	public Color getFillColor()
 	{
-		// TODO 002 Figure#getFillColor
-		return Color.TRANSPARENT;
+		// DONE 002 Figure#getFillColor
+		return fillColor.orElse(null);
 	}
 
 	/**
@@ -317,8 +317,12 @@ public abstract class Figure implements Prototype<Figure>
 	 */
 	public void setFillColor(Color fillColor) throws IllegalStateException
 	{
-		// TODO 003 Figure#setFillColor ...
+		// FIXME 003 Figure#setFillColor ...
 		Color colorToSet = Color.TRANSPARENT;
+		
+		if (fillColor == null && edgeColor.isEmpty()) {
+			throw new IllegalStateException();
+		}
 
 		if (shape != null)
 		{
