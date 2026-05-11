@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 
 import figures.Drawing;
 import figures.Ellipse;
+import figures.Circle;
+import figures.Rectangle;
 import figures.Figure;
 import history.HistoryManager;
 import javafx.scene.control.Label;
@@ -78,17 +80,17 @@ public enum FigureType
 		switch (this)
 		{
 			case CIRCLE:
-				// TODO 203 FigureType#getFigure CIRLCE case ...
+				// DONE 203 FigureType#getFigure CIRLCE case ...
 				// Change this
-				return null;
+//				return null;
 				// to this when Circle is ready
-//				return new Circle(fillColor,
-//				                  edgeColor,
-//				                  lineType,
-//				                  lineWidth,
-//				                  parentLogger,
-//				                  x,
-//				                  y);
+				return new Circle(fillColor,
+				                  edgeColor,
+				                  lineType,
+				                  lineWidth,
+				                  parentLogger,
+				                  x,
+				                  y);
 			case ELLIPSE:
 				return new Ellipse(fillColor,
 				                   edgeColor,
@@ -98,17 +100,17 @@ public enum FigureType
 				                   x,
 				                   y);
 			case RECTANGLE:
-				// TODO 303 FigureType#getFigure RECTANGLE case ...
+				// DONE 303 FigureType#getFigure RECTANGLE case ...
 				// Change this
-				return null;
+//				return null;
 				// to this when Rectangle is ready
-//				return new Rectangle(fillColor,
-//				                     edgeColor,
-//				                     lineType,
-//				                     lineWidth,
-//				                     parentLogger,
-//				                     x,
-//				                     y);
+				return new Rectangle(fillColor,
+				                     edgeColor,
+				                     lineType,
+				                     lineWidth,
+				                     parentLogger,
+				                     x,
+				                     y);
 			/**
 			 * All other cases INTERSECTION, SUBTRACTION, UNION are created by
 			 * operating on two existing figures and have different constructors
@@ -220,20 +222,20 @@ public enum FigureType
 	{
 		Class<? extends Figure> type = f.getClass();
 
-		// TODO 205 FigureType#fromFigure uncomment when Circle is ready
-//		if (type == Circle.class)
-//		{
-//			return CIRCLE;
-//		}
+		// DONE 205 FigureType#fromFigure uncomment when Circle is ready
+		if (type == Circle.class)
+		{
+			return CIRCLE;
+		}
 		if (type == Ellipse.class)
 		{
 			return ELLIPSE;
 		}
-		// TODO 305 FigureType#fromFigure uncomment when Rectangle is ready
-//		if (type == Rectangle.class)
-//		{
-//			return RECTANGLE;
-//		}
+		// DONE 305 FigureType#fromFigure uncomment when Rectangle is ready
+		if (type == Rectangle.class)
+		{
+			return RECTANGLE;
+		}
 
 		// TODO 701 FigureType#fromFigure uncomment when OperationFigure is ready
 //		if (type == OperationFigure.class)

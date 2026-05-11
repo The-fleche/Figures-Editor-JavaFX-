@@ -14,6 +14,8 @@ import application.cells.FigureCell;
 import application.panels.InfoPanelController;
 import figures.Drawing;
 import figures.Ellipse;
+import figures.Circle;
+import figures.Rectangle;
 import figures.Figure;
 import figures.enums.FigureType;
 import figures.enums.LineType;
@@ -1444,34 +1446,34 @@ public class Controller implements Initializable
 		double x = spacing;
 		double y = spacing;
 
-		// TODO 201 Controller#onDemoAction Uncomment the following when Circle is ready
-//		historyManager.record();
-//		drawingModel.add(new Circle(fill1,
-//		                            null,
-//		                            LineType.NONE,
-//		                            1.0,
-//		                            logger,
-//		                            x,
-//		                            y,
-//		                            size * 0.75));
-//		historyManager.record();
-//		drawingModel.add(new Circle(fill2,
-//		                            edge1,
-//		                            LineType.DASHED,
-//		                            thickLine,
-//		                            logger,
-//		                            x,
-//		                            y,
-//		                            size * 0.50));
-//		historyManager.record();
-//		drawingModel.add(new Circle(fill3,
-//		                            edge2,
-//		                            LineType.SOLID,
-//		                            thinLine,
-//		                            logger,
-//		                            x,
-//		                            y,
-//		                            size * 0.25));
+		// DONE 201 Controller#onDemoAction Uncomment the following when Circle is ready
+		historyManager.record();
+		drawingModel.add(new Circle(fill1,
+		                            null,
+		                            LineType.NONE,
+		                            1.0,
+		                            logger,
+		                            x,
+		                            y,
+		                            size * 0.75));
+		historyManager.record();
+		drawingModel.add(new Circle(fill2,
+		                            edge1,
+		                            LineType.DASHED,
+		                            thickLine,
+		                            logger,
+		                            x,
+		                            y,
+		                            size * 0.50));
+		historyManager.record();
+		drawingModel.add(new Circle(fill3,
+		                            edge2,
+		                            LineType.SOLID,
+		                            thinLine,
+		                            logger,
+		                            x,
+		                            y,
+		                            size * 0.25));
 
 		x += (spacing * 2.0);
 
@@ -1509,37 +1511,37 @@ public class Controller implements Initializable
 		x = spacing;
 		y += (spacing * 2.0);
 
-		// TODO 301 Controller#onDemoAction Uncomment the following when Rectangle is ready
-//		historyManager.record();
-//		drawingModel.add(new Rectangle(fill1,
-//		                               null,
-//		                               LineType.NONE,
-//		                               1.0,
-//		                               logger,
-//		                               x - ((size * 1.5) / 2.0),
-//		                               y - (size / 2.0),
-//		                               size * 1.5,
-//		                               size).setRotate(angle));
-//		historyManager.record();
-//		drawingModel.add(new Rectangle(fill2,
-//		                               edge1,
-//		                               LineType.DASHED,
-//		                               thickLine,
-//		                               logger,
-//		                               x - (size / 2.0),
-//		                               y - ((size * 0.75) / 2.0),
-//		                               size,
-//		                               size * 0.75).setRotate(-angle));
-//		historyManager.record();
-//		drawingModel.add(new Rectangle(fill3,
-//		                               edge2,
-//		                               LineType.SOLID,
-//		                               thinLine,
-//		                               logger,
-//		                               x - ((size * 0.5) / 2.0),
-//		                               y - ((size * 0.33) / 2.0),
-//		                               size * 0.5,
-//		                               size * 0.33));
+		// DONE 301 Controller#onDemoAction Uncomment the following when Rectangle is ready
+		historyManager.record();
+		drawingModel.add(new Rectangle(fill1,
+		                               null,
+		                               LineType.NONE,
+		                               1.0,
+		                               logger,
+		                               x - ((size * 1.5) / 2.0),
+		                               y - (size / 2.0),
+		                               size * 1.5,
+		                               size).setRotate(angle));
+		historyManager.record();
+		drawingModel.add(new Rectangle(fill2,
+		                               edge1,
+		                               LineType.DASHED,
+		                               thickLine,
+		                               logger,
+		                               x - (size / 2.0),
+		                               y - ((size * 0.75) / 2.0),
+		                               size,
+		                               size * 0.75).setRotate(-angle));
+		historyManager.record();
+		drawingModel.add(new Rectangle(fill3,
+		                               edge2,
+		                               LineType.SOLID,
+		                               thinLine,
+		                               logger,
+		                               x - ((size * 0.5) / 2.0),
+		                               y - ((size * 0.33) / 2.0),
+		                               size * 0.5,
+		                               size * 0.33));
 	}
 
 	/**

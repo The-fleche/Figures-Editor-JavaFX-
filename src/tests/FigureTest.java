@@ -31,6 +31,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import figures.Ellipse;
+import figures.Circle;
+import figures.Rectangle;
 import figures.Figure;
 import figures.Mouseable;
 import figures.enums.FigureType;
@@ -62,10 +64,10 @@ class FigureTest
 	(Class<? extends Figure>[]) new Class<?>[]
 	{
 		Ellipse.class,
-		// TODO 202 FigureTest#figureTypes uncomment the following classes when Circle is ready
-//		Circle.class,
-		// TODO 302 uncomment the following when Rectangle is ready
-//		Rectangle.class
+		// DONE 202 FigureTest#figureTypes uncomment the following classes when Circle is ready
+		Circle.class,
+		// DONE 302 uncomment the following when Rectangle is ready
+		Rectangle.class
 	};
 
 	/**
@@ -342,20 +344,20 @@ class FigureTest
 	 */
 	private final static FigureType class2FigureType(Class<? extends Figure> figureClass)
 	{
-		// TODO 204 FigureTest#class2FigureType uncomment when Circle is ready
-//		if (figureClass == Circle.class)
-//		{
-//			return FigureType.CIRCLE;
-//		}
+		// DONE 204 FigureTest#class2FigureType uncomment when Circle is ready
+		if (figureClass == Circle.class)
+		{
+			return FigureType.CIRCLE;
+		}
 		if (figureClass == Ellipse.class)
 		{
 			return FigureType.ELLIPSE;
 		}
-		// TODO 304 FigureTest#class2Figure uncomment when Rectangle is ready
-//		if (figureClass == Rectangle.class)
-//		{
-//			return FigureType.RECTANGLE;
-//		}
+		// DONE 304 FigureTest#class2Figure uncomment when Rectangle is ready
+		if (figureClass == Rectangle.class)
+		{
+			return FigureType.RECTANGLE;
+		}
 
 		throw new IllegalArgumentException("unexpected Figure class " + figureClass.getSimpleName());
 	}

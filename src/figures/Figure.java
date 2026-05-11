@@ -317,15 +317,22 @@ public abstract class Figure implements Prototype<Figure>
 	 */
 	public void setFillColor(Color fillColor) throws IllegalStateException
 	{
-		// FIXME 003 Figure#setFillColor ...
+		// DONE 003 Figure#setFillColor ...
 		Color colorToSet = Color.TRANSPARENT;
 		
 		if (fillColor == null && edgeColor.isEmpty()) {
 			throw new IllegalStateException();
 		}
+		
+		if (fillColor != null) {
+			this.fillColor = Optional.of(ColorFactory.getColor(fillColor));
+		} else {
+			this.fillColor = Optional.empty();
+		}
 
 		if (shape != null)
 		{
+			colorToSet = this.fillColor.orElse(Color.TRANSPARENT);
 			shape.setFill(colorToSet);
 		}
 		else
@@ -340,8 +347,8 @@ public abstract class Figure implements Prototype<Figure>
 	 */
 	public boolean hasEdgeColor()
 	{
-		// TODO 004 Figure#hasEdgeColor ...
-		return false;
+		// DONE 004 Figure#hasEdgeColor ...
+		return edgeColor.isPresent();
 	}
 
 	/**
@@ -350,8 +357,8 @@ public abstract class Figure implements Prototype<Figure>
 	 */
 	public Color getEdgeColor()
 	{
-		// TODO 005 Figure#getEdgeColor ...
-		return null;
+		// DONE 005 Figure#getEdgeColor ...
+		return edgeColor.orElse(null);
 	}
 
 	/**
@@ -368,11 +375,22 @@ public abstract class Figure implements Prototype<Figure>
 	 */
 	public void setEdgeColor(Color edgeColor) throws IllegalStateException
 	{
-		// TODO 006 Figure#setEdgeColor ...
+		// DONE 006 Figure#setEdgeColor ...
 		Color colorToSet = Color.TRANSPARENT;
+
+		if (edgeColor == null && fillColor.isEmpty()) {
+			throw new IllegalStateException("setEdgeColor : edgeColor and fillColor can't be null at the same time");
+		}
+
+		if (edgeColor != null) {
+			this.edgeColor = Optional.of(ColorFactory.getColor(edgeColor));
+		} else {
+			this.edgeColor = Optional.empty();
+		}
 
 		if (shape != null)
 		{
+			colorToSet = this.edgeColor.orElse(Color.TRANSPARENT);
 			shape.setStroke(colorToSet);
 		}
 		else
@@ -401,7 +419,7 @@ public abstract class Figure implements Prototype<Figure>
 		this.lineType = lineType;
 
 		/*
-		 * TODO 007 Figure#setLineType ...
+		 * DONE 007 Figure#setLineType ...
 		 * 	- if NONE set internal shape stroke to Color#TRANSPARENT
 		 * 	- if DASHED or SOLID then clears internal shape StrokeDashArray
 		 * 	- if DASHED then setup internal shape StrokeDashArray
@@ -412,10 +430,14 @@ public abstract class Figure implements Prototype<Figure>
 			switch(lineType)
 			{
 				case NONE:
+					shape.setStroke(Color.TRANSPARENT);
 					break;
 				case SOLID:
+					shape.setStroke(edgeColor.orElse(Color.TRANSPARENT));
 					break;
 				case DASHED:
+					shape.setStroke(edgeColor.orElse(Color.TRANSPARENT));
+					dashArray.addAll(lineWidth, lineWidth);
 					break;
 			}
 		}
@@ -442,10 +464,13 @@ public abstract class Figure implements Prototype<Figure>
 	{
 		this.lineWidth = lineWidth;
 
-		// TODO 008 Figure#setLineWidth ...
+		// DONE 008 Figure#setLineWidth ...
 		if (shape != null)
 		{
-
+			shape.setStrokeWidth(this.lineWidth);
+			if (lineType == LineType.DASHED) {
+				setLineType(LineType.DASHED);
+			}
 		}
 		else
 		{
@@ -487,7 +512,7 @@ public abstract class Figure implements Prototype<Figure>
 		if (shape != null)
 		{
 			/*
-			 * TODO 009 Figure#setSelected ...
+			 * DONE 009 Figure#setSelected ...
 			 * 	- if selected then add a new JavaFX Rectangle to #root: #selectionRectangle
 			 * 		- location from topLeftPoint
 			 * 		- size from width() & height()
@@ -497,9 +522,19 @@ public abstract class Figure implements Prototype<Figure>
 			 */
 			if (selected)	// #selectionRectangle should be created
 			{
+				selectionRectangle = new Rectangle();
+				selectionRectangle.setFill(ColorFactory.getColor(Color.TRANSPARENT));
+				selectionRectangle.setStroke(Color.GRAY);
+				selectionRectangle.getStrokeDashArray().addAll(5.0, 5.0);
+				updateSelectionFrame();
+				root.getChildren().add(selectionRectangle);
 			}
 			else			// #selectionRectangle should be destroyed
 			{
+				if (selectionRectangle != null) {
+					root.getChildren().remove(selectionRectangle);
+					selectionRectangle = null;
+            	}
 			}
 		}
 		else
@@ -714,8 +749,13 @@ public abstract class Figure implements Prototype<Figure>
 	 */
 	public boolean overlaps(Figure figure)
 	{
-		// TODO 010 Figure#overlaps ...
-		return false;
+		// DONE 010 Figure#overlaps ...
+		if (figure == null) return false;
+		
+		Bounds myBounds = this.root.getBoundsInParent();
+		Bounds otherBounds = figure.getRoot().getBoundsInParent();
+		
+		return myBounds.intersects(otherBounds);
 	}
 
 	// -------------------------------------------------------------------------
@@ -768,7 +808,7 @@ public abstract class Figure implements Prototype<Figure>
 			return true;
 		}
 		/*
-		 * TODO 011 Figure#equals(Object) ...
+		 * DONE 011 Figure#equals(Object) ...
 		 * - Compares
 		 * 	- Class
 		 * 	- equals(Figure)
@@ -785,7 +825,26 @@ public abstract class Figure implements Prototype<Figure>
 		 * Number attributes should be compared up to "threshold" precision
 		 * Object attributes should be compared using equals(Object) method
 		 */
-		return false;
+		if (obj.getClass() != this.getClass()) {
+			return false;
+		}
+		// on cast l'obj à comparer en figure vu qu'il est de la même classe
+		Figure other = (Figure) obj;
+
+		if (!this.fillColor.equals(other.fillColor)) return false;
+		if (!this.edgeColor.equals(other.edgeColor)) return false;
+		if (this.lineType != other.lineType) return false;
+ 
+		if(Math.abs(this.lineWidth - other.lineWidth) > threshold) return false; 
+		
+
+		if(Math.abs(this.root.getTranslateX() - other.root.getTranslateX()) > threshold) return false; 
+		if(Math.abs(this.root.getTranslateY() - other.root.getTranslateY()) > threshold) return false; 
+		if(Math.abs(this.root.getRotate() - other.root.getRotate()) > threshold) return false; 
+		if(Math.abs(this.root.getScaleX() - other.root.getScaleX()) > threshold) return false; 
+		if(Math.abs(this.root.getScaleY() - other.root.getScaleY()) > threshold) return false; 
+
+		return equals(other);
 	}
 
 	/**

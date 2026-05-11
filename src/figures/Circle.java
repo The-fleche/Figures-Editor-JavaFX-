@@ -10,45 +10,45 @@ import javafx.scene.paint.Color;
 import utils.ColorFactory;
 
 /**
- * Ellipse Figure containing a {@link javafx.scene.shape.Ellipse} as its
+ * Circle Figure containing a {@link javafx.scene.shape.Circle} as its
  * {@link Figure#shape}
- * @warning Since This class is also named "Ellipse", you'll need to use
- * (javafx.scene.shape.Ellipse) each time you need to acces to internal
- * {@link Figure#shape} casted as a {@link javafx.scene.shape.Ellipse}
+ * @warning Since This class is also named "Circle", you'll need to use
+ * (javafx.scene.shape.Circle) each time you need to acces to internal
+ * {@link Figure#shape} casted as a {@link javafx.scene.shape.Circle}
  * @implSpec It is assumed that {@link Figure#shape} will always be non null
- * during the life cycle of an Ellipse.
+ * during the life cycle of an Circle.
  * @author davidroussel
  */
-public class Ellipse extends Figure implements Mouseable
+public class Circle extends Figure implements Mouseable
 {
 	/**
 	 * Instances counter (to be used in {@link Figure#instanceNumber}) of each
-	 * Ellipse.
+	 * Circle.
 	 * @implNote No need to decrease {@link Figure#instanceNumber} in
 	 * #finalize()
 	 */
 	private static int counter = 0;
 
 	/**
-	 * Valued constructor to build a zero size Ellipse at point (x, y).
+	 * Valued constructor to build a zero size Circle at point (x, y).
 	 * Used during Rectangle construction with {@link MouseEvent}s.
 	 * Calls super-constructor, sets {@link Figure#instanceNumber} then
 	 * {@link #createShape(double, double)} and attach {@link Figure#shape} to
 	 * {@link Figure#root}.
 	 * @param fillColor the fill color (or null if there is no fill color).
-	 * The fill color set in this ellipse shall be set from {@link ColorFactory}.
+	 * The fill color set in this Circle shall be set from {@link ColorFactory}.
 	 * @param edgeColor the edge color (or null if there is no edge color)
-	 * The edge color set in this ellipse shall be set from {@link ColorFactory}.
+	 * The edge color set in this Circle shall be set from {@link ColorFactory}.
 	 * @param lineType line type (Either {@link LineType#SOLID},
 	 * {@link LineType#DASHED} or {@link LineType#NONE}).
-	 * @param lineWidth line width of this ellipse.
+	 * @param lineWidth line width of this Circle.
 	 * @param parentLogger a parent logger used to initialize the current logger
-	 * @param x the initial x coordinate in the drawing panel where to create this ellipse
-	 * @param y the initial y coordinate in the drawing panel where to create this ellipse
+	 * @param x the initial x coordinate in the drawing panel where to create this Circle
+	 * @param y the initial y coordinate in the drawing panel where to create this Circle
 	 * @throws IllegalStateException if we try to set both fillColor and
 	 * edgecolor as nulls
 	 */
-	public Ellipse(Color fillColor,
+	public Circle(Color fillColor,
 	               Color edgeColor,
 	               LineType lineType,
 	               double lineWidth,
@@ -64,63 +64,60 @@ public class Ellipse extends Figure implements Mouseable
 	}
 
 	/**
-	 * Valued constructor to build an Ellipse at point (x, y) with specified
+	 * Valued constructor to build an Circle at point (x, y) with specified
 	 * width and height.
 	 * Calls super-constructor, sets {@link Figure#instanceNumber} then
 	 * {@link #createShape(double, double)} and attach {@link Figure#shape} to
 	 * {@link Figure#root}.
 	 * @param fillColor the fill color (or null if there is no fill color).
-	 * The fill color set in this ellipse shall be set from {@link ColorFactory}.
+	 * The fill color set in this Circle shall be set from {@link ColorFactory}.
 	 * @param edgeColor the edge color (or null if there is no edge color)
-	 * The edge color set in this ellipse shall be set from {@link ColorFactory}.
+	 * The edge color set in this Circle shall be set from {@link ColorFactory}.
 	 * @param lineType line type (Either {@link LineType#SOLID},
 	 * {@link LineType#DASHED} or {@link LineType#NONE}).
-	 * @param lineWidth line width of this ellipse.
+	 * @param lineWidth line width of this Circle.
 	 * @param parentLogger a parent logger used to initialize the current logger
-	 * @param x the initial x coordinate in the drawing panel where to create this ellipse
-	 * @param y the initial y coordinate in the drawing panel where to create this ellipse
-	 * @param width the initial width of this Ellipse
-	 * @param height the initial height of this Ellipse
+	 * @param x the initial x coordinate in the drawing panel where to create this Circle
+	 * @param y the initial y coordinate in the drawing panel where to create this Circle
+	 * @param width the initial width of this Circle
+	 * @param height the initial height of this Circle
 	 * @throws IllegalStateException if we try to set both fillColor and
 	 * edgecolor as nulls
 	 */
-	public Ellipse(Color fillColor,
+	public Circle(Color fillColor,
 	               Color edgeColor,
 	               LineType lineType,
 	               double lineWidth,
 	               Logger parentLogger,
 	               double x,
 	               double y,
-	               double width,
-	               double height)
+	               double radius)
 	    throws IllegalStateException
 	{
 		this(fillColor, edgeColor, lineType, lineWidth, parentLogger, x, y);
-		javafx.scene.shape.Ellipse ellipse = (javafx.scene.shape.Ellipse) shape;
-		ellipse.setRadiusX(width);
-		ellipse.setRadiusY(height);
+		javafx.scene.shape.Circle circle = (javafx.scene.shape.Circle) shape;
+		circle.setRadius(radius);
 	}
 
 	/**
 	 * Copy constructor
 	 * @param figure the figure to be copied
-	 * @throws IllegalArgumentException if the provided figure is not an Ellipse
+	 * @throws IllegalArgumentException if the provided figure is not an Circle
 	 */
-	public Ellipse(Figure figure) throws IllegalArgumentException
+	public Circle(Figure figure) throws IllegalArgumentException
 	{
 		super(figure);
-		if (!(figure instanceof Ellipse))
+		if (!(figure instanceof Circle))
 		{
-			String message = "provided figure is not an Ellipse: "
+			String message = "provided figure is not an Circle: "
 			    + figure.getClass().getSimpleName();
 			logger.severe(message);
 			throw new IllegalArgumentException(message);
 		}
-		javafx.scene.shape.Ellipse figureEllipse = (javafx.scene.shape.Ellipse) figure.shape;
-		shape = new javafx.scene.shape.Ellipse(figureEllipse.getCenterX(),
-		                                       figureEllipse.getCenterY(),
-		                                       figureEllipse.getRadiusX(),
-		                                       figureEllipse.getRadiusY());
+		javafx.scene.shape.Circle figureCircle = (javafx.scene.shape.Circle) figure.shape;
+		shape = new javafx.scene.shape.Circle(figureCircle.getCenterX(),
+		                                       figureCircle.getCenterY(),
+		                                       figureCircle.getRadius());
 		applyParameters();
 		root.getChildren().add(shape);
 		setSelected(figure.selected);
@@ -128,13 +125,13 @@ public class Ellipse extends Figure implements Mouseable
 
 	/**
 	 * Convenience method to get internal {@link Figure#shape} casted as a
-	 * {@link javafx.scene.shape.Ellipse}
+	 * {@link javafx.scene.shape.Circle}
 	 * @return the internal {@link Figure#shape} casted as a
-	 * {@link javafx.scene.shape.Ellipse}
+	 * {@link javafx.scene.shape.Circle}
 	 */
-	private javafx.scene.shape.Ellipse getEllipseShape()
+	private javafx.scene.shape.Circle getCircleShape()
 	{
-		return (javafx.scene.shape.Ellipse)shape;
+		return (javafx.scene.shape.Circle)shape;
 	}
 
 	/**
@@ -144,9 +141,11 @@ public class Ellipse extends Figure implements Mouseable
 	@Override
 	public Point2D getCenter()
 	{
-		javafx.scene.shape.Ellipse ellipseShape = getEllipseShape();
-		return new Point2D(ellipseShape.getCenterX(), ellipseShape.getCenterY());
+		javafx.scene.shape.Circle circleShape = getCircleShape();
+		return new Point2D(circleShape.getCenterX(), circleShape.getCenterY());
 	}
+
+
 
 	/**
 	 * Width of this figure
@@ -155,7 +154,7 @@ public class Ellipse extends Figure implements Mouseable
 	@Override
 	public double width()
 	{
-		return getEllipseShape().getRadiusX() * 2.0;
+		return getCircleShape().getRadius() * 2.0;
 	}
 
 	/**
@@ -165,7 +164,7 @@ public class Ellipse extends Figure implements Mouseable
 	@Override
 	public double height()
 	{
-		return getEllipseShape().getRadiusY() * 2.0;
+		return getCircleShape().getRadius() * 2.0;
 	}
 
 	/**
@@ -175,9 +174,9 @@ public class Ellipse extends Figure implements Mouseable
 	@Override
 	public Point2D topLeft()
 	{
-		javafx.scene.shape.Ellipse ellipseShape = getEllipseShape();
-		double halfWidth = ellipseShape.getRadiusX();
-		double halfHeight = ellipseShape.getRadiusY();
+		javafx.scene.shape.Circle circleShape = getCircleShape();
+		double halfWidth = circleShape.getRadius();
+		double halfHeight = circleShape.getRadius();
 		Point2D center = getCenter();
 
 		return new Point2D(center.getX() - halfWidth,
@@ -191,9 +190,9 @@ public class Ellipse extends Figure implements Mouseable
 	@Override
 	public Point2D bottomRight()
 	{
-		javafx.scene.shape.Ellipse ellipseShape = getEllipseShape();
-		double halfWidth = ellipseShape.getRadiusX();
-		double halfHeight = ellipseShape.getRadiusY();
+		javafx.scene.shape.Circle circleShape = getCircleShape();
+		double halfWidth = circleShape.getRadius();
+		double halfHeight = circleShape.getRadius();
 		Point2D center = getCenter();
 
 		return new Point2D(center.getX() + halfWidth,
@@ -217,18 +216,18 @@ public class Ellipse extends Figure implements Mouseable
 	public void createShape(double x, double y)
 	{
 		/*
-		 * Note: since This class is also named Ellipse we need to explicitely
-		 * use "new javafx.scene.shape.Ellipse(...)" here
+		 * Note: since This class is also named Circle we need to explicitely
+		 * use "new javafx.scene.shape.Circle(...)" here
 		 */
-		shape = new javafx.scene.shape.Ellipse(x, y, 0.0, 0.0);
+		shape = new javafx.scene.shape.Circle(x, y, 0.0);
 		applyParameters();
 	}
 
 	/**
 	 * Sets the last point of this figure.
-	 * Sets the radius of this Ellipse based on the distance between center and
+	 * Sets the radius of this Circle based on the distance between center and
 	 * the provided point
-	 * @param lastPoint the point used to set this Ellipse's radius
+	 * @param lastPoint the point used to set this Circle's radius
 	 */
 	@Override
 	public void setLastPoint(Point2D lastPoint)
@@ -236,24 +235,24 @@ public class Ellipse extends Figure implements Mouseable
 		Point2D center = getCenter();
 		double dx = Math.abs(lastPoint.getX() - center.getX());
 		double dy = Math.abs(lastPoint.getY() - center.getY());
-		javafx.scene.shape.Ellipse ellipseShape = getEllipseShape();
-		ellipseShape.setRadiusX(dx);
-		ellipseShape.setRadiusY(dy);
+		double dist = Math.sqrt(dx*dx + dy*dy);
+		javafx.scene.shape.Circle circleShape = getCircleShape();
+		circleShape.setRadius(dist);
 	}
 
 	/**
-	 * Creates a copy of this ellipse (with the same name and instance number)
-	 * @return A distinct copy of this ellipse
+	 * Creates a copy of this Circle (with the same name and instance number)
+	 * @return A distinct copy of this Circle
 	 */
 	@Override
 	public Figure clone()
 	{
-		return new Ellipse(this);
+		return new Circle(this);
 	}
 
 	/**
-	 * Compare this ellipse to another figure
-	 * @return true if the other figure is also an Ellipse with the same
+	 * Compare this Circle to another figure
+	 * @return true if the other figure is also an Circle with the same
 	 * position and size (with {@link Figure#threshold}), false otherwise.
 	 * Other parameters, such as {@link Figure#fillColor},
 	 * {@link Figure#edgeColor}, {@link Figure#lineType},
@@ -263,24 +262,24 @@ public class Ellipse extends Figure implements Mouseable
 	@Override
 	protected boolean equals(Figure figure)
 	{
-		if (!(figure instanceof Ellipse))
+		if (!(figure instanceof Circle))
 		{
 			return false;
 		}
 
-		Ellipse ellipse = (Ellipse) figure;
+		Circle circle = (Circle) figure;
 
-		if (Math.abs(getCenter().distance(ellipse.getCenter())) > threshold)
+		if (Math.abs(getCenter().distance(circle.getCenter())) > threshold)
 		{
 			return false;
 		}
 
-		if (Math.abs(width() - ellipse.width()) > threshold)
+		if (Math.abs(width() - circle.width()) > threshold)
 		{
 			return false;
 		}
 
-		if (Math.abs(height() - ellipse.height()) > threshold)
+		if (Math.abs(height() - circle.height()) > threshold)
 		{
 			return false;
 		}
@@ -289,10 +288,10 @@ public class Ellipse extends Figure implements Mouseable
 	}
 
 	/**
-	 * Hash code for Ellipses.
+	 * Hash code for Circles.
 	 * uses super.hashCode then appends
 	 * <ul>
-	 * 	<li>FigureType.ELLIPSE.hashCode()</li>
+	 * 	<li>FigureType.Circle.hashCode()</li>
 	 * 	<li>hashCode for radiusX</li>
 	 * 	<li>hashCode for radiusY</li>
 	 * </ul>
@@ -303,11 +302,9 @@ public class Ellipse extends Figure implements Mouseable
 	{
 		final int prime = 31;
 		int result = super.hashCode();
-		result = (prime * result) + FigureType.ELLIPSE.hashCode();
-		javafx.scene.shape.Ellipse ellipse = getEllipseShape();
-		long temp = Double.doubleToLongBits(ellipse.getRadiusX());
-		result = (result * prime) + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(ellipse.getRadiusY());
+		result = (prime * result) + FigureType.CIRCLE.hashCode();
+		javafx.scene.shape.Circle circle = getCircleShape();
+		long temp = Double.doubleToLongBits(circle.getRadius());
 		result = (result * prime) + (int) (temp ^ (temp >>> 32));
 		return result;
 	}

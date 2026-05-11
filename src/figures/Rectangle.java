@@ -10,45 +10,45 @@ import javafx.scene.paint.Color;
 import utils.ColorFactory;
 
 /**
- * Ellipse Figure containing a {@link javafx.scene.shape.Ellipse} as its
+ * Rectangle Figure containing a {@link javafx.scene.shape.Rectangle} as its
  * {@link Figure#shape}
- * @warning Since This class is also named "Ellipse", you'll need to use
- * (javafx.scene.shape.Ellipse) each time you need to acces to internal
- * {@link Figure#shape} casted as a {@link javafx.scene.shape.Ellipse}
+ * @warning Since This class is also named "Rectangle", you'll need to use
+ * (javafx.scene.shape.Rectangle) each time you need to acces to internal
+ * {@link Figure#shape} casted as a {@link javafx.scene.shape.Rectangle}
  * @implSpec It is assumed that {@link Figure#shape} will always be non null
- * during the life cycle of an Ellipse.
+ * during the life cycle of an Rectangle.
  * @author davidroussel
  */
-public class Ellipse extends Figure implements Mouseable
+public class Rectangle extends Figure implements Mouseable
 {
 	/**
 	 * Instances counter (to be used in {@link Figure#instanceNumber}) of each
-	 * Ellipse.
+	 * Rectangle.
 	 * @implNote No need to decrease {@link Figure#instanceNumber} in
 	 * #finalize()
 	 */
 	private static int counter = 0;
 
 	/**
-	 * Valued constructor to build a zero size Ellipse at point (x, y).
+	 * Valued constructor to build a zero size Rectangle at point (x, y).
 	 * Used during Rectangle construction with {@link MouseEvent}s.
 	 * Calls super-constructor, sets {@link Figure#instanceNumber} then
 	 * {@link #createShape(double, double)} and attach {@link Figure#shape} to
 	 * {@link Figure#root}.
 	 * @param fillColor the fill color (or null if there is no fill color).
-	 * The fill color set in this ellipse shall be set from {@link ColorFactory}.
+	 * The fill color set in this Rectangle shall be set from {@link ColorFactory}.
 	 * @param edgeColor the edge color (or null if there is no edge color)
-	 * The edge color set in this ellipse shall be set from {@link ColorFactory}.
+	 * The edge color set in this Rectangle shall be set from {@link ColorFactory}.
 	 * @param lineType line type (Either {@link LineType#SOLID},
 	 * {@link LineType#DASHED} or {@link LineType#NONE}).
-	 * @param lineWidth line width of this ellipse.
+	 * @param lineWidth line width of this Rectangle.
 	 * @param parentLogger a parent logger used to initialize the current logger
-	 * @param x the initial x coordinate in the drawing panel where to create this ellipse
-	 * @param y the initial y coordinate in the drawing panel where to create this ellipse
+	 * @param x the initial x coordinate in the drawing panel where to create this Rectangle
+	 * @param y the initial y coordinate in the drawing panel where to create this Rectangle
 	 * @throws IllegalStateException if we try to set both fillColor and
 	 * edgecolor as nulls
 	 */
-	public Ellipse(Color fillColor,
+	public Rectangle(Color fillColor,
 	               Color edgeColor,
 	               LineType lineType,
 	               double lineWidth,
@@ -64,27 +64,27 @@ public class Ellipse extends Figure implements Mouseable
 	}
 
 	/**
-	 * Valued constructor to build an Ellipse at point (x, y) with specified
+	 * Valued constructor to build an Rectangle at point (x, y) with specified
 	 * width and height.
 	 * Calls super-constructor, sets {@link Figure#instanceNumber} then
 	 * {@link #createShape(double, double)} and attach {@link Figure#shape} to
 	 * {@link Figure#root}.
 	 * @param fillColor the fill color (or null if there is no fill color).
-	 * The fill color set in this ellipse shall be set from {@link ColorFactory}.
+	 * The fill color set in this Rectangle shall be set from {@link ColorFactory}.
 	 * @param edgeColor the edge color (or null if there is no edge color)
-	 * The edge color set in this ellipse shall be set from {@link ColorFactory}.
+	 * The edge color set in this Rectangle shall be set from {@link ColorFactory}.
 	 * @param lineType line type (Either {@link LineType#SOLID},
 	 * {@link LineType#DASHED} or {@link LineType#NONE}).
-	 * @param lineWidth line width of this ellipse.
+	 * @param lineWidth line width of this Rectangle.
 	 * @param parentLogger a parent logger used to initialize the current logger
-	 * @param x the initial x coordinate in the drawing panel where to create this ellipse
-	 * @param y the initial y coordinate in the drawing panel where to create this ellipse
-	 * @param width the initial width of this Ellipse
-	 * @param height the initial height of this Ellipse
+	 * @param x the initial x coordinate in the drawing panel where to create this Rectangle
+	 * @param y the initial y coordinate in the drawing panel where to create this Rectangle
+	 * @param width the initial width of this Rectangle
+	 * @param height the initial height of this Rectangle
 	 * @throws IllegalStateException if we try to set both fillColor and
 	 * edgecolor as nulls
 	 */
-	public Ellipse(Color fillColor,
+	public Rectangle(Color fillColor,
 	               Color edgeColor,
 	               LineType lineType,
 	               double lineWidth,
@@ -96,31 +96,31 @@ public class Ellipse extends Figure implements Mouseable
 	    throws IllegalStateException
 	{
 		this(fillColor, edgeColor, lineType, lineWidth, parentLogger, x, y);
-		javafx.scene.shape.Ellipse ellipse = (javafx.scene.shape.Ellipse) shape;
-		ellipse.setRadiusX(width);
-		ellipse.setRadiusY(height);
+		javafx.scene.shape.Rectangle Rectangle = (javafx.scene.shape.Rectangle) shape;
+		Rectangle.setWidth(width);
+		Rectangle.setHeight(height);
 	}
 
 	/**
 	 * Copy constructor
 	 * @param figure the figure to be copied
-	 * @throws IllegalArgumentException if the provided figure is not an Ellipse
+	 * @throws IllegalArgumentException if the provided figure is not an Rectangle
 	 */
-	public Ellipse(Figure figure) throws IllegalArgumentException
+	public Rectangle(Figure figure) throws IllegalArgumentException
 	{
 		super(figure);
-		if (!(figure instanceof Ellipse))
+		if (!(figure instanceof Rectangle))
 		{
-			String message = "provided figure is not an Ellipse: "
+			String message = "provided figure is not an Rectangle: "
 			    + figure.getClass().getSimpleName();
 			logger.severe(message);
 			throw new IllegalArgumentException(message);
 		}
-		javafx.scene.shape.Ellipse figureEllipse = (javafx.scene.shape.Ellipse) figure.shape;
-		shape = new javafx.scene.shape.Ellipse(figureEllipse.getCenterX(),
-		                                       figureEllipse.getCenterY(),
-		                                       figureEllipse.getRadiusX(),
-		                                       figureEllipse.getRadiusY());
+		javafx.scene.shape.Rectangle figureRectangle = (javafx.scene.shape.Rectangle) figure.shape;
+		shape = new javafx.scene.shape.Rectangle(figureRectangle.getX(),
+		                                       figureRectangle.getY(),
+		                                       figureRectangle.getWidth(),
+		                                       figureRectangle.getHeight());
 		applyParameters();
 		root.getChildren().add(shape);
 		setSelected(figure.selected);
@@ -128,13 +128,13 @@ public class Ellipse extends Figure implements Mouseable
 
 	/**
 	 * Convenience method to get internal {@link Figure#shape} casted as a
-	 * {@link javafx.scene.shape.Ellipse}
+	 * {@link javafx.scene.shape.Rectangle}
 	 * @return the internal {@link Figure#shape} casted as a
-	 * {@link javafx.scene.shape.Ellipse}
+	 * {@link javafx.scene.shape.Rectangle}
 	 */
-	private javafx.scene.shape.Ellipse getEllipseShape()
+	private javafx.scene.shape.Rectangle getRectangleShape()
 	{
-		return (javafx.scene.shape.Ellipse)shape;
+		return (javafx.scene.shape.Rectangle)shape;
 	}
 
 	/**
@@ -144,8 +144,8 @@ public class Ellipse extends Figure implements Mouseable
 	@Override
 	public Point2D getCenter()
 	{
-		javafx.scene.shape.Ellipse ellipseShape = getEllipseShape();
-		return new Point2D(ellipseShape.getCenterX(), ellipseShape.getCenterY());
+		javafx.scene.shape.Rectangle r = getRectangleShape();
+		return new Point2D(r.getX() + r.getWidth() / 2.0, r.getY() + r.getHeight() / 2.0);
 	}
 
 	/**
@@ -155,7 +155,7 @@ public class Ellipse extends Figure implements Mouseable
 	@Override
 	public double width()
 	{
-		return getEllipseShape().getRadiusX() * 2.0;
+		return getRectangleShape().getWidth();
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class Ellipse extends Figure implements Mouseable
 	@Override
 	public double height()
 	{
-		return getEllipseShape().getRadiusY() * 2.0;
+		return getRectangleShape().getHeight();
 	}
 
 	/**
@@ -175,13 +175,8 @@ public class Ellipse extends Figure implements Mouseable
 	@Override
 	public Point2D topLeft()
 	{
-		javafx.scene.shape.Ellipse ellipseShape = getEllipseShape();
-		double halfWidth = ellipseShape.getRadiusX();
-		double halfHeight = ellipseShape.getRadiusY();
-		Point2D center = getCenter();
-
-		return new Point2D(center.getX() - halfWidth,
-		                   center.getY() - halfHeight);
+		javafx.scene.shape.Rectangle r = getRectangleShape();
+		return new Point2D(r.getX(), r.getY());
 	}
 
 	/**
@@ -191,13 +186,8 @@ public class Ellipse extends Figure implements Mouseable
 	@Override
 	public Point2D bottomRight()
 	{
-		javafx.scene.shape.Ellipse ellipseShape = getEllipseShape();
-		double halfWidth = ellipseShape.getRadiusX();
-		double halfHeight = ellipseShape.getRadiusY();
-		Point2D center = getCenter();
-
-		return new Point2D(center.getX() + halfWidth,
-		                   center.getY() + halfHeight);
+		javafx.scene.shape.Rectangle r = getRectangleShape();
+		return new Point2D(r.getX() + r.getWidth(), r.getY() + r.getHeight());
 	}
 
 	/**
@@ -217,43 +207,40 @@ public class Ellipse extends Figure implements Mouseable
 	public void createShape(double x, double y)
 	{
 		/*
-		 * Note: since This class is also named Ellipse we need to explicitely
-		 * use "new javafx.scene.shape.Ellipse(...)" here
+		 * Note: since This class is also named Rectangle we need to explicitely
+		 * use "new javafx.scene.shape.Rectangle(...)" here
 		 */
-		shape = new javafx.scene.shape.Ellipse(x, y, 0.0, 0.0);
+		shape = new javafx.scene.shape.Rectangle(x, y, 0.0, 0.0);
 		applyParameters();
 	}
 
 	/**
 	 * Sets the last point of this figure.
-	 * Sets the radius of this Ellipse based on the distance between center and
+	 * Sets the width/height of this Rectangle based on the distance between center and
 	 * the provided point
-	 * @param lastPoint the point used to set this Ellipse's radius
+	 * @param lastPoint the point used to set this Rectangle's dimension
 	 */
 	@Override
 	public void setLastPoint(Point2D lastPoint)
 	{
-		Point2D center = getCenter();
-		double dx = Math.abs(lastPoint.getX() - center.getX());
-		double dy = Math.abs(lastPoint.getY() - center.getY());
-		javafx.scene.shape.Ellipse ellipseShape = getEllipseShape();
-		ellipseShape.setRadiusX(dx);
-		ellipseShape.setRadiusY(dy);
+	javafx.scene.shape.Rectangle r = getRectangleShape();
+	r.setWidth(Math.abs(lastPoint.getX() - r.getX()));
+    r.setHeight(Math.abs(lastPoint.getY() - r.getY()));
 	}
 
 	/**
-	 * Creates a copy of this ellipse (with the same name and instance number)
-	 * @return A distinct copy of this ellipse
+	 * Creates a copy of this Rectangle (with the same name and instance number)
+	 * @return A distinct copy of this Rectangle
 	 */
 	@Override
 	public Figure clone()
 	{
-		return new Ellipse(this);
+		return new Rectangle(this);
 	}
 
 	/**
-	 * Compare this ellipse to another figure
-	 * @return true if the other figure is also an Ellipse with the same
+	 * Compare this Rectangle to another figure
+	 * @return true if the other figure is also an Rectangle with the same
 	 * position and size (with {@link Figure#threshold}), false otherwise.
 	 * Other parameters, such as {@link Figure#fillColor},
 	 * {@link Figure#edgeColor}, {@link Figure#lineType},
@@ -263,24 +250,24 @@ public class Ellipse extends Figure implements Mouseable
 	@Override
 	protected boolean equals(Figure figure)
 	{
-		if (!(figure instanceof Ellipse))
+		if (!(figure instanceof Rectangle))
 		{
 			return false;
 		}
 
-		Ellipse ellipse = (Ellipse) figure;
+		Rectangle Rectangle = (Rectangle) figure;
 
-		if (Math.abs(getCenter().distance(ellipse.getCenter())) > threshold)
+		if (Math.abs(getCenter().distance(Rectangle.getCenter())) > threshold)
 		{
 			return false;
 		}
 
-		if (Math.abs(width() - ellipse.width()) > threshold)
+		if (Math.abs(width() - Rectangle.width()) > threshold)
 		{
 			return false;
 		}
 
-		if (Math.abs(height() - ellipse.height()) > threshold)
+		if (Math.abs(height() - Rectangle.height()) > threshold)
 		{
 			return false;
 		}
@@ -289,12 +276,12 @@ public class Ellipse extends Figure implements Mouseable
 	}
 
 	/**
-	 * Hash code for Ellipses.
+	 * Hash code for Rectangles.
 	 * uses super.hashCode then appends
 	 * <ul>
-	 * 	<li>FigureType.ELLIPSE.hashCode()</li>
-	 * 	<li>hashCode for radiusX</li>
-	 * 	<li>hashCode for radiusY</li>
+	 * 	<li>FigureType.Rectangle.hashCode()</li>
+	 * 	<li>hashCode for width</li>
+	 * 	<li>hashCode for height</li>
 	 * </ul>
 	 * @return a hashCode based on super.hashCode,
 	 */
@@ -303,11 +290,11 @@ public class Ellipse extends Figure implements Mouseable
 	{
 		final int prime = 31;
 		int result = super.hashCode();
-		result = (prime * result) + FigureType.ELLIPSE.hashCode();
-		javafx.scene.shape.Ellipse ellipse = getEllipseShape();
-		long temp = Double.doubleToLongBits(ellipse.getRadiusX());
+		result = (prime * result) + FigureType.RECTANGLE.hashCode();
+		javafx.scene.shape.Rectangle Rectangle = getRectangleShape();
+		long temp = Double.doubleToLongBits(Rectangle.getWidth());
 		result = (result * prime) + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(ellipse.getRadiusY());
+		temp = Double.doubleToLongBits(Rectangle.getHeight());
 		result = (result * prime) + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
