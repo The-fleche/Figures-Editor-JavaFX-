@@ -466,11 +466,17 @@ public class Drawing extends ModifiableObservableListBase<Figure>
 		FigureType figureType = figureTypeProperty.get();
 
 		/*
-		 * TODO 101 Drawing#initiateFigure ...
+		 * DONE 101 Drawing#initiateFigure ...
 		 * Calls FigureType#getFigure with the appropriate arguments to get a
 		 * newly created figure at location (x, y)
 		 */
-		return null;
+
+		Color fill = hasFillColorProperty.get() ? fillColorProperty.get() : null;
+		Color edge = hasEdgeColorProperty.get() ? edgeColorProperty.get() : null;
+		LineType linetype = lineTypeProperty.get();
+		double linewidth = lineWidthProperty.get();
+		
+		return figureType.getFigure(fill, edge, linetype, linewidth, logger, x, y);
 	}
 
 	/**
@@ -485,7 +491,7 @@ public class Drawing extends ModifiableObservableListBase<Figure>
 	public Figure fromShape(Shape shape)
 	{
 		/*
-		 * TODO 102 Drawing#fromShape
+		 * DONE 102 Drawing#fromShape
 		 * 	- finds the figure in #figures containing this shape
 		 * 	- or finds the group index of root.getChildren() containing this shape since it should be the same as in #figures
 		 * CAUTION root.getChildren() might only contains Groups, so we have to investigate
@@ -493,6 +499,22 @@ public class Drawing extends ModifiableObservableListBase<Figure>
 		 * NOTE : This also works for Figure#selectionRectangle since its a
 		 * Shape in a Group at the right index
 		 */
+
+		// On  récupère la liste des nœuds enfants du panneau (le root)
+    	ObservableList<Node> nodes = root.getChildren();
+
+		for (int i=0; i<nodes.size(); i++) {
+			Node node = nodes.get(i);
+			// on vérifie que nodes contient effectivement que des groups
+			if (node instanceof javafx.scene.Group) {
+            	javafx.scene.Group group = (javafx.scene.Group) node;
+				// si le groupe actuel contient la bonne forme alors on renvoie la figure associée
+				if (group.getChildren().contains(shape)) {
+					return figures.get(i);
+				}
+			}
+		} 
+		// Si on a pas trouvé de correspondance on renvoie null
 		return null;
 	}
 
@@ -502,12 +524,13 @@ public class Drawing extends ModifiableObservableListBase<Figure>
 	 */
 	public void clearSelection()
 	{
-		// TODO 103 Drawing#clearSelection ...
+		// DONE 103 Drawing#clearSelection ...
 		if (view == null)
 		{
 			logger.severe("null view");
 			return;
 		}
+		view.getSelectionModel().clearSelection();
 	}
 
 	/**
@@ -537,11 +560,16 @@ public class Drawing extends ModifiableObservableListBase<Figure>
 		    + (selected ? "true" : "false"));
 
 		/*
-		 * TODO 104 Drawing#updateSelection ...
+		 * DONE 104 Drawing#updateSelection ...
 		 * Get #view selection model and either
 		 * 	- select(index) or
 		 * 	- clearSelection(index)
 		 */
+		if (selected) {
+			view.getSelectionModel().select(index);
+		} else {
+			view.getSelectionModel().clearSelection(index);
+		}
 	}
 
 	/**
@@ -550,8 +578,13 @@ public class Drawing extends ModifiableObservableListBase<Figure>
 	 */
 	public void refresh()
 	{
-		// TODO 105 Drawing#refresh() ...
+		// DONE 105 Drawing#refresh() ...
 		ObservableList<Node> children = root.getChildren();
+
+		children.clear();
+		for (Figure f : figures) {
+			children.add(f.getRoot());
+		}
 	}
 
 	// ------------------------------------------------------------------------
@@ -782,11 +815,17 @@ public class Drawing extends ModifiableObservableListBase<Figure>
 			List<? extends Figure> selection = change.getList();
 
 			/*
-			 * TODO 106 Drawing#onChanged ...
+			 * DONE 106 Drawing#onChanged ...
 			 * Changes #figures figure selected states according to selection
 			 */
 			// Deselect all figures
+			for (Figure f : figures) {
+				f.setSelected(false);
+			}
 			// Select all figures in the selection list
+			for (Figure f : selection) {
+				f.setSelected(true);
+			}
 		}
 	}
 }
